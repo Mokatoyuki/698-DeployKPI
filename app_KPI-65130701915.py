@@ -1,7 +1,13 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+
+# Attempt to import matplotlib
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    st.error("Error: Matplotlib is required for this app to run. Please install it using 'pip install matplotlib'.")
+
 import seaborn as sns
 import pickle
 import gzip
