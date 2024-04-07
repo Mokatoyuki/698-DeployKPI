@@ -6,7 +6,6 @@ try:
     import seaborn as sns
 except ImportError:
     st.error('Matplotlib and Seaborn libraries are required for this app. Please install them using: pip install matplotlib seaborn')
-    st.stop()
 
 import pickle
 import gzip
@@ -102,20 +101,18 @@ elif st.session_state.tab_selected == 1:
         # Filter DataFrame based on selected condition
         filtered_df = df[df[condition_feature].isin(condition_values)]
 
-        # Create a new figure with the specified size
-        plt.figure(figsize=(14, 8))
+        # Create a new figure
+        fig = plt.figure(figsize=(14, 8))
 
         # Add a subplot to the figure
-        ax = plt.subplot()
+        ax = fig.add_subplot(111)
 
         # Plot the number of employees based on KPIs
         sns.countplot(x=condition_feature, hue='KPIs_met_more_than_80', data=filtered_df, palette='viridis', ax=ax)
         plt.title('Number of Employees based on KPIs')
         plt.xlabel(condition_feature)
         plt.ylabel('Number of Employees')
-        st.pyplot()  # Display the plot
-
-
+        st.pyplot(fig)
 
 # Tab 3: Predict from CSV
 elif st.session_state.tab_selected == 2:
@@ -155,9 +152,13 @@ elif st.session_state.tab_selected == 2:
         # Select feature for visualization
         feature_for_visualization = st.selectbox('Select Feature for Visualization:', csv_df_org.columns)
 
-        # Plot the number of employees based on KPIs for the selected feature
+        # Create a new figure
         fig = plt.figure(figsize=(14, 8))
+
+        # Add a subplot to the figure
         ax = fig.add_subplot(111)
+
+        # Plot the number of employees based on KPIs for the selected feature
         sns.countplot(x=feature_for_visualization, hue='KPIs_met_more_than_80', data=csv_df_org, palette='viridis', ax=ax)
         plt.title(f'Number of Employees based on KPIs - {feature_for_visualization}')
         plt.xlabel(feature_for_visualization)
