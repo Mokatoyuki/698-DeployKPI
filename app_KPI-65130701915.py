@@ -103,7 +103,7 @@ elif st.session_state.tab_selected == 1:
 
         # Plot the number of employees based on KPIs
         fig, ax = plt.subplots(figsize=(14, 8))
-        sns.countplot(x=condition_feature, hue='KPIs_met_more_than_80', data=filtered_df, palette='viridis')
+        sns.countplot(x=condition_feature, hue='KPIs_met_more_than_80', data=filtered_df, palette='viridis', ax=ax)
         plt.title('Number of Employees based on KPIs')
         plt.xlabel(condition_feature)
         plt.ylabel('Number of Employees')
@@ -149,7 +149,7 @@ elif st.session_state.tab_selected == 2:
 
         # Plot the number of employees based on KPIs for the selected feature
         fig, ax = plt.subplots(figsize=(14, 8))
-        sns.countplot(x=feature_for_visualization, hue='KPIs_met_more_than_80', data=csv_df_org, palette='viridis')
+        sns.countplot(x=feature_for_visualization, hue='KPIs_met_more_than_80', data=csv_df_org, palette='viridis', ax=ax)
         plt.title(f'Number of Employees based on KPIs - {feature_for_visualization}')
         plt.xlabel(feature_for_visualization)
         plt.ylabel('Number of Employees')
