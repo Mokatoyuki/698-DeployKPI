@@ -1,8 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+try:
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+except ImportError:
+    st.error('Matplotlib and Seaborn libraries are required for this app. Please install them using: pip install matplotlib seaborn')
 
 import pickle
 import gzip
@@ -99,7 +102,8 @@ elif st.session_state.tab_selected == 1:
         filtered_df = df[df[condition_feature].isin(condition_values)]
 
         # Plot the number of employees based on KPIs
-        fig, ax = plt.subplots(figsize=(14, 8))
+        fig = plt.figure(figsize=(14, 8))
+        ax = fig.add_subplot(111)
         sns.countplot(x=condition_feature, hue='KPIs_met_more_than_80', data=filtered_df, palette='viridis', ax=ax)
         plt.title('Number of Employees based on KPIs')
         plt.xlabel(condition_feature)
@@ -145,7 +149,8 @@ elif st.session_state.tab_selected == 2:
         feature_for_visualization = st.selectbox('Select Feature for Visualization:', csv_df_org.columns)
 
         # Plot the number of employees based on KPIs for the selected feature
-        fig, ax = plt.subplots(figsize=(14, 8))
+        fig = plt.figure(figsize=(14, 8))
+        ax = fig.add_subplot(111)
         sns.countplot(x=feature_for_visualization, hue='KPIs_met_more_than_80', data=csv_df_org, palette='viridis', ax=ax)
         plt.title(f'Number of Employees based on KPIs - {feature_for_visualization}')
         plt.xlabel(feature_for_visualization)
