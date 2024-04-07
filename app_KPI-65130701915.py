@@ -3,10 +3,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import gzip
 import pickle
 
 # Load model and encoders
-with open('model-kpi-65130701915.pkl', 'rb') as file:
+with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
     model, department_encoder, region_encoder, education_encoder, gender_encoder, recruitment_channel_encoder = pickle.load(file)
 
 # Load your DataFrame
