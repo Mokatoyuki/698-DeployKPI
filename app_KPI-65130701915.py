@@ -1,15 +1,14 @@
-import streamlit as st
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import seaborn as sns
-import gzip
-import pickle
+import math as math
 
+# Install seaborn if not already installed
 try:
-      import matplotlib
-except:
-      import os
-      os.system("python -m pip install -U matplotlib")
+    import seaborn as sns
+except ImportError:
+    !pip install seaborn
+    import seaborn as sns
 
 # Load model and encoders
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
