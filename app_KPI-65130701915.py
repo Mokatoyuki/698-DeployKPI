@@ -1,16 +1,18 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+try:
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+except ImportError:
+    st.error('Matplotlib and Seaborn libraries are required for this app. Please install them using: pip install matplotlib seaborn')
+
 import pickle
 import gzip
 
-# Load model and encoders from a compressed pickle file
+# Load model and encoders
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
     model, department_encoder, region_encoder, education_encoder, gender_encoder, recruitment_channel_encoder = pickle.load(file)
-
 
 # Load your DataFrame
 # Replace 'your_data.csv' with the actual file name or URL
@@ -113,26 +115,21 @@ elif st.session_state.tab_selected == 2:
 
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
-    # uploaded_file
-    
+
     if uploaded_file is not None:
         # Read CSV file
         csv_df_org = pd.read_csv(uploaded_file)
         csv_df_org = csv_df_org.dropna()
-        # csv_df_org.columns
-        
+
         csv_df = csv_df_org.copy()
         csv_df = csv_df.drop('employee_id',axis=1)
-        
-        
-        
-         # Categorical Data Encoding
+
+        # Categorical Data Encoding
         csv_df['department'] = department_encoder.transform(csv_df['department'])
         csv_df['region'] = region_encoder.transform(csv_df['region'])
         csv_df['education'] = education_encoder.transform(csv_df['education'])
         csv_df['gender'] = gender_encoder.transform(csv_df['gender'])
         csv_df['recruitment_channel'] = recruitment_channel_encoder.transform(csv_df['recruitment_channel'])
-
 
         # Predicting
         predictions = model.predict(csv_df)
@@ -157,5 +154,3 @@ elif st.session_state.tab_selected == 2:
         plt.xlabel(feature_for_visualization)
         plt.ylabel('Number of Employees')
         st.pyplot(fig)
-
-        
