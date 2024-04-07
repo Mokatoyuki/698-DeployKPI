@@ -1,17 +1,11 @@
+import subprocess
+import sys
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'matplotlib'])
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import math as math
 import subprocess
-
-# Install seaborn if not already installed
-try:
-    import seaborn as sns
-except ImportError:
-    import subprocess
-    import sys
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'seaborn'])
-    import seaborn as sns
 
 
 # Load model and encoders
