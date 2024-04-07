@@ -156,3 +156,51 @@ elif st.session_state.tab_selected == 2:
         plt.xlabel(feature_for_visualization)
         plt.ylabel('Number of Employees')
         st.pyplot(fig)
+
+# Continued from the previous code snippet
+
+# Tab 3: Predict from CSV
+elif st.session_state.tab_selected == 2:
+    st.header('Predict from CSV')
+
+    # Upload CSV file
+    uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+
+    if uploaded_file is not None:
+        # Read CSV file
+        csv_df_org = pd.read_csv(uploaded_file)
+        csv_df_org = csv_df_org.dropna()
+
+        csv_df = csv_df_org.copy()
+        csv_df = csv_df.drop('employee_id',axis=1)
+
+        # Categorical Data Encoding
+        csv_df['department'] = department_encoder.transform(csv_df['department'])
+        csv_df['region'] = region_encoder.transform(csv_df['region'])
+        csv_df['education'] = education_encoder.transform(csv_df['education'])
+        csv_df['gender'] = gender_encoder.transform(csv_df['gender'])
+        csv_df['recruitment_channel'] = recruitment_channel_encoder.transform(csv_df['recruitment_channel'])
+
+        # Predicting
+        predictions = model.predict(csv_df)
+
+        # Add predictions to the DataFrame
+        csv_df_org['KPIs_met_more_than_80'] = predictions
+
+        # Display the DataFrame with predictions
+        st.subheader('Predicted Results:')
+        st.write(csv_df_org)
+
+        # Visualize predictions based on a selected feature
+        st.subheader('Visualize Predictions')
+
+        # Select feature for visualization
+        feature_for_visualization = st.selectbox('Select Feature for Visualization:', csv_df_org.columns)
+
+        # Plot the number of employees based on KPIs for the selected feature
+        fig, ax = plt.subplots(figsize=(14, 8))
+        sns.countplot(x=feature_for_visualization, hue='KPIs_met_more_than_80', data=csv_df_org, palette='viridis')
+        plt.title(f'Number of Employees based on KPIs - {feature_for_visualization}')
+        plt.xlabel(feature_for_visualization)
+        plt.ylabel('Number of Employees')
+        st.pyplot(fig)
