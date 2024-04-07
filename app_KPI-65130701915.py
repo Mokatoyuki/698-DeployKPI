@@ -10,6 +10,7 @@ import pickle
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
     model, department_encoder, region_encoder, education_encoder, gender_encoder, recruitment_channel_encoder = pickle.load(file)
 
+
 # Load your DataFrame
 # Replace 'your_data.csv' with the actual file name or URL
 df = pd.read_csv('Uncleaned_employees_final_dataset.csv')
