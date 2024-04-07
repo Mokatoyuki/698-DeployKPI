@@ -8,7 +8,9 @@ import subprocess
 try:
     import seaborn as sns
 except ImportError:
-    subprocess.check_call(['pip', 'install', 'seaborn'])
+    import subprocess
+    import sys
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'seaborn'])
     import seaborn as sns
 
 
