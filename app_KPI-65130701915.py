@@ -101,18 +101,19 @@ elif st.session_state.tab_selected == 1:
         # Filter DataFrame based on selected condition
         filtered_df = df[df[condition_feature].isin(condition_values)]
 
-        # Create a new figure
-        fig = plt.figure(figsize=(14, 8))
+        # Create a new figure with the specified size
+        plt.figure(figsize=(14, 8))
 
         # Add a subplot to the figure
-        ax = fig.add_subplot(111)
+        ax = plt.subplot()
 
         # Plot the number of employees based on KPIs
         sns.countplot(x=condition_feature, hue='KPIs_met_more_than_80', data=filtered_df, palette='viridis', ax=ax)
         plt.title('Number of Employees based on KPIs')
         plt.xlabel(condition_feature)
         plt.ylabel('Number of Employees')
-        st.pyplot(fig)
+        st.pyplot()  # Display the plot
+
 
 
 # Tab 3: Predict from CSV
