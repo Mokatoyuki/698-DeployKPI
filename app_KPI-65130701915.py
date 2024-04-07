@@ -1,11 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-try:
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-except ImportError:
-    st.error('Matplotlib and Seaborn libraries are required for this app. Please install them using: pip install matplotlib seaborn')
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 import pickle
 import gzip
