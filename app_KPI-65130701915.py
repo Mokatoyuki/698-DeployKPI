@@ -2,13 +2,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import math as math
+import subprocess
 
 # Install seaborn if not already installed
 try:
     import seaborn as sns
 except ImportError:
-    !pip install seaborn
+    subprocess.check_call(['pip', 'install', 'seaborn'])
     import seaborn as sns
+
 
 # Load model and encoders
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
