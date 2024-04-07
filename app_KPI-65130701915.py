@@ -6,6 +6,9 @@ import seaborn as sns
 import pickle
 import gzip
 
+pip install --upgrade matplotlib
+
+
 # Load model and encoders
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
     model, department_encoder, region_encoder, education_encoder, gender_encoder, recruitment_channel_encoder = pickle.load(file)
