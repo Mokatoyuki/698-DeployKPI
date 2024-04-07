@@ -6,8 +6,11 @@ import seaborn as sns
 import gzip
 import pickle
 
-# Install matplotlib if not already installed
-!pip install matplotlib
+try:
+      import matplotlib
+except:
+      import os
+      os.system("python -m pip install -U matplotlib")
 
 # Load model and encoders
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
