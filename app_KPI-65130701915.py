@@ -1,20 +1,21 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
-# Try importing matplotlib and seaborn
-try:
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-except ImportError:
-    st.error('Matplotlib and Seaborn libraries are required for this app. Please install them using: pip install matplotlib seaborn')
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 import pickle
 import gzip
 
 # Load model and encoders
 with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
     model, department_encoder, region_encoder, education_encoder, gender_encoder, recruitment_channel_encoder = pickle.load(file)
+
+model = data['model']
+department_encoder = data['department_encoder']
+region_encoder = data['region_encoder']
+education_encoder = data['education_encoder']
+gender_encoder = data['gender_encoder']
+recruitment_channel_encoder = data['recruitment_channel_encoder']
 
 # Load your DataFrame
 # Replace 'your_data.csv' with the actual file name or URL
@@ -117,11 +118,13 @@ elif st.session_state.tab_selected == 2:
 
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+    # uploaded_file
 
     if uploaded_file is not None:
         # Read CSV file
         csv_df_org = pd.read_csv(uploaded_file)
         csv_df_org = csv_df_org.dropna()
+        # csv_df_org.columns
 
         csv_df = csv_df_org.copy()
         csv_df = csv_df.drop('employee_id',axis=1)
