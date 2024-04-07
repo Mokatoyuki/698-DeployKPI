@@ -7,10 +7,6 @@ try:
 except ImportError:
     st.error
 
-# ตัวอื่น ๆ ของโปรแกรม
-...
-
-
 import pickle
 import gzip
 
