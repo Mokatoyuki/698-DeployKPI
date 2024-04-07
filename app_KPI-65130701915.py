@@ -4,18 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
-import gzip
 
 # Load model and encoders
-with gzip.open('model-kpi-65130701915.pkl.gz', 'rb') as file:
-    data = pickle.load(file)
-
-model = data['model']
-department_encoder = data['department_encoder']
-region_encoder = data['region_encoder']
-education_encoder = data['education_encoder']
-gender_encoder = data['gender_encoder']
-recruitment_channel_encoder = data['recruitment_channel_encoder']
+with open('model-kpi-65130701915.pkl', 'rb') as file:
+    model, department_encoder, region_encoder, education_encoder, gender_encoder, recruitment_channel_encoder = pickle.load(file)
 
 # Load your DataFrame
 # Replace 'your_data.csv' with the actual file name or URL
@@ -129,12 +121,15 @@ elif st.session_state.tab_selected == 2:
         csv_df = csv_df_org.copy()
         csv_df = csv_df.drop('employee_id',axis=1)
 
-        # Categorical Data Encoding
+
+
+         # Categorical Data Encoding
         csv_df['department'] = department_encoder.transform(csv_df['department'])
         csv_df['region'] = region_encoder.transform(csv_df['region'])
         csv_df['education'] = education_encoder.transform(csv_df['education'])
         csv_df['gender'] = gender_encoder.transform(csv_df['gender'])
         csv_df['recruitment_channel'] = recruitment_channel_encoder.transform(csv_df['recruitment_channel'])
+
 
         # Predicting
         predictions = model.predict(csv_df)
