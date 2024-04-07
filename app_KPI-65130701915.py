@@ -6,7 +6,6 @@ try:
     import seaborn as sns
 except ImportError:
     st.error('Matplotlib and Seaborn libraries are required for this app. Please install them using: pip install matplotlib seaborn')
-    st.stop()
 
 import pickle
 import gzip
